@@ -1,0 +1,25 @@
+{
+  "name": "03-basesnode",
+  "version": "1.0.0",
+  "description": "Esta es una aplicacion de linea de comando",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jguerrero101314/Nodejs.git"
+  },
+  "author": "Joel Guerrero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jguerrero101314/Nodejs/issues"
+  },
+  "homepage": "https://github.com/jguerrero101314/Nodejs#readme",
+  "dependencies": {
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
