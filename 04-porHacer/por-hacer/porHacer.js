@@ -14,10 +14,18 @@ const guardarDB = () => {
                 resolve(`../db/data.json`.green);
         });
     });
+}
 
+const cargarDB = () => {
+    try {
+        listadoPorHacer = require('../db/data.json');
+    } catch (err) {
+        listadoPorHacer = [];
+    }
 }
 
 const crear = (descripcion) => {
+    cargarDB();
     let porHacer = {
         descripcion,
         completado: false
