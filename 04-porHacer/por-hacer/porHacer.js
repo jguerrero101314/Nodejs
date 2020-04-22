@@ -52,11 +52,37 @@ const actualizar = (descripcion, completado = true) => {
     } else {
         return false;
     }
+}
 
+const borrar = (descripcion) => {
+    cargarDB();
+    let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion);
+
+    if (index >= 0) {
+        listadoPorHacer.splice(index, 1);
+        guardarDB();
+        return true;
+    } else {
+        return false;
+    }
+    /*
+     cargarDB();
+     let nuevoListado = listadoPorHacer.filter(tarea => {
+         return tarea.descripcion !== despcripcion
+     })
+     if(listadoPorHacer.lenght === nuevoListado.lenght){
+         return false;
+     }else{
+         listadoPorHacer = nuevoListado;
+         guardarDB();
+        return true;
+     }
+    */
 }
 
 module.exports = {
     crear,
     getListado,
-    actualizar
+    actualizar,
+    borrar
 }
