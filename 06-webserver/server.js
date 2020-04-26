@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 const hbs = require('hbs');
+require('./hbs/helpers');
+
 
 app.use(express.static(__dirname + '/public'));
 // Express HBS engine
 
 hbs.registerPartials(__dirname + '/views/parciales');
 app.set('view engine', 'hbs');
+
 
 app.get('/', (req, res) => {
     //  res.send('Hello World');
@@ -17,8 +20,8 @@ app.get('/', (req, res) => {
     // };
     //res.send(salida);
     res.render('home', {
-        nombre: 'Joel',
-        anio: new Date().getFullYear()
+        nombre: 'joel guerrero'
+            // anio: new Date().getFullYear()
     });
 });
 app.get('/about', (req, res) => {
