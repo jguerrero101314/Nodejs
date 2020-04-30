@@ -35,13 +35,12 @@ app.put('/usuario/:id', function(req, res) {
 app.delete('/usuario', function(req, res) {
     res.json(' delete usuario');
 });
-mongoose.connect('mongodb://localhost:27017/cafe', (err, res) => {
-
-    if (err) throw err;
-    console.log('Base de datos ONLINE');
-
-
-});
+mongoose.connect('mongodb://localhost:27017/cafe', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('base de datos ONLINE'))
+    .catch(err => console.log('No se pudo conectar', err));
 
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto: ', process.env.PORT);
