@@ -20,10 +20,14 @@ app.get('/usuario', function(req, res) {
                     err
                 });
             }
-            res.json({
-                ok: true,
-                usuarios
+            Usuario.count({}, (err, conteo) => {
+                res.json({
+                    ok: true,
+                    usuarios,
+                    registros: conteo
+                })
             })
+
         })
 });
 app.post('/usuario', function(req, res) {
