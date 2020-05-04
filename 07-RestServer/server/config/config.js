@@ -7,7 +7,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 //Vencimiento del token  60 segundos, 60 minutos, 24 horas y 30 dias
 process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
 //SEED de autenticacion
-process.env.SEEDcl = process.env.SEED || 'secret';
+process.env.SEED = process.env.SEED || 'secret';
 //BD
 let urlDB;
 if (process.env.NODE_ENV === 'dev') {

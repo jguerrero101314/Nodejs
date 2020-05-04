@@ -1,11 +1,12 @@
 const express = require('express');
 const Usuario = require('../models/usuario');
+const { verificaToken } = require('../middlewares/authentication');
 const app = express();
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
