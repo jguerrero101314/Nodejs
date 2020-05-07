@@ -7,11 +7,6 @@ const _ = require('underscore');
 
 
 app.get('/usuario', verificaToken, (req, res) => {
-    // return res.json({
-    //     usuario: req.usuario,
-    //     nombre: req.usuario.nombre,
-    //     email: req.usuario.email
-    // });
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -28,7 +23,7 @@ app.get('/usuario', verificaToken, (req, res) => {
                     err
                 });
             }
-            Usuario.count({ estado: true }, (err, conteo) => {
+            Usuario.count({ estado: true }, (conteo) => {
                 res.json({
                     ok: true,
                     usuarios,
@@ -42,7 +37,6 @@ app.get('/usuario', verificaToken, (req, res) => {
 });
 app.post('/usuario', [verificaToken, verificaAdminRole], (req, res) => {
     let body = req.body;
-
     let usuario = new Usuario({
         nombre: body.nombre,
         email: body.email,
@@ -81,11 +75,9 @@ app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
                 ok: true,
                 usuario: usuarioDB // pero no esta retornando en postman
             });
-        }
-
-    })
-
-})
+        };
+    });
+});
 
 app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
     let id = req.params.id;
