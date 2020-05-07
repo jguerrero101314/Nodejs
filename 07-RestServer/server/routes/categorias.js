@@ -16,6 +16,8 @@ app.get('/categoria', verificaToken, (req, res) => {
     let limite = req.query.limite || 5;
     limite = Number(limite);
     Categoria.find()
+        .sort('descripcion')
+        .populate('usuario', 'nombre email')
         .skip(desde)
         .limit(limite)
         .exec((err, categorias) => {
