@@ -1,6 +1,6 @@
 const express = require('express');
 
-let { verificaToken } = require('../middlewares/authentication');
+let { verificaToken, verificaAdminRole } = require('../middlewares/authentication');
 
 let app = express();
 
@@ -15,7 +15,6 @@ app.get('/categoria', verificaToken, (req, res) => {
     desde = Number(desde);
     let limite = req.query.limite || 5;
     limite = Number(limite);
-
     Categoria.find()
         .skip(desde)
         .limit(limite)
@@ -26,14 +25,14 @@ app.get('/categoria', verificaToken, (req, res) => {
                     err
                 });
             }
-            Categoria.countDocuments((err, conteo) => {
+            Categoria.countDocuments((conteo) => {
                 res.json({
                     ok: true,
                     categorias,
                     registros: conteo
-                })
-            })
-        })
+                });
+            });
+        });
 });
 // ============================
 // Mostrar una categoria por ID
@@ -47,6 +46,13 @@ app.get('/categoria/:id', verificaToken, (req, res) => {
                 ok: false,
                 err
             })
+        } else if (!categoriaDB) {
+            return res.status(500).json({
+                ok: false,
+                err: {
+                    message: 'El id no es correcto'
+                }
+            });
         } else {
             console.log("verificando el resultado ");
             console.log(categoriaDB); // esta mostrabdo correctamente
@@ -121,17 +127,23 @@ app.put('/categoria/:id', verificaToken, (req, res) => {
 // ===========================
 // Elimina una categoria
 // ===========================
-app.delete('/categoria/:id', (req, res) => {
+app.delete('/categoria/:id', [verificaToken, verificaAdminRole], (req, res) => {
     //solo un admin puede borras categorias
     //Categoria.findByIdAndRemove
     let id = req.params.id;
-
-    Categoria.findByIdAndDelete(id, function(err, categoriaDB) {
+    Categoria.findByIdAndDelete(id, (err, categoriaDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 err: {
                     message: 'La categoria no se pudo eliminar'
+                }
+            });
+        } else if (!categoriaDB) {
+            return res.status(500).json({
+                ok: false,
+                err: {
+                    message: 'El id no existe'
                 }
             });
         } else {
