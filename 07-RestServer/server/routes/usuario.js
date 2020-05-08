@@ -28,12 +28,9 @@ app.get('/usuario', verificaToken, (req, res) => {
                     ok: true,
                     usuarios,
                     registros: conteo
-                })
-            })
-
-        })
-
-
+                });
+            });
+        });
 });
 app.post('/usuario', [verificaToken, verificaAdminRole], (req, res) => {
     let body = req.body;
