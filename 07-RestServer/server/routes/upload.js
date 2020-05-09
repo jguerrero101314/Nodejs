@@ -2,6 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
 const Usuario = require('../models/usuario');
+const Producto = require('../models/producto');
 const fs = require('fs');
 const path = require('path');
 
@@ -61,7 +62,18 @@ app.put('/upload/:tipo/:id', function(req, res) {
                 err
             });
         // aqui imagen cargada
-        imagenUsuario(id, res, nombreArchivo);
+        if (tipo === 'usuarios') {
+            imagenUsuario(id, res, nombreArchivo);
+        } else if (tipo === 'productos') {
+            imagenProducto(id, res, nombreArchivo);
+        } else {
+            res.json({
+                ok: false,
+                message: 'imagen no se pudo subir correctamente'
+            });
+        }
+
+
 
         // res.json({
         //     ok: true,
@@ -84,7 +96,7 @@ function imagenUsuario(id, res, nombreArchivo) {
             return res.status(400).json({
                 ok: false,
                 err: {
-                    mensage: 'usuario no existe'
+                    mensage: 'producto no existe'
                 }
             });
         }
@@ -101,8 +113,35 @@ function imagenUsuario(id, res, nombreArchivo) {
     });
 }
 
-function imagenProducto() {
+function imagenProducto(id, res, nombreArchivo) {
+    Producto.findById(id, (err, productoDB) => {
+        if (err) {
+            borrarArchivo(nombreArchivo, 'productos');
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }
+        if (!productoDB) {
+            borrarArchivo(nombreArchivo, 'productos');
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    mensage: 'producto no existe'
+                }
+            });
+        }
+        // borrar imagen si existe
+        borrarArchivo(productoDB.img, 'productos');
+        productoDB.img = nombreArchivo;
+        productoDB.save((err, productoGuardado) => {
+            res.json({
+                ok: true,
+                producto: productoGuardado
+            })
+        })
 
+    });
 }
 
 function borrarArchivo(nombreImagen, tipo) {
