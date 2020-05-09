@@ -96,7 +96,7 @@ function imagenUsuario(id, res, nombreArchivo) {
             return res.status(400).json({
                 ok: false,
                 err: {
-                    mensage: 'producto no existe'
+                    mensage: 'usuario no existe'
                 }
             });
         }
