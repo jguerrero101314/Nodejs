@@ -1,12 +1,15 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
+const Usuario = require('../models/usuario');
 
 
 // default options
 app.use(fileUpload());
 
-app.put('/upload', function(req, res) {
+app.put('/upload/:tipo/:id', function(req, res) {
+    let tipo = req.params.tipo;
+    let id = req.params.id;
 
     if (!req.files) {
         return res.status(400).json({
@@ -16,6 +19,20 @@ app.put('/upload', function(req, res) {
             }
         });
     }
+    //validar tipo
+    let tiposValidos = ['productos', 'usuarios'];
+
+    if (tiposValidos.indexOf(tipo) < 0) {
+        return res.status(400).json({
+            ok: false,
+            err: {
+                mensaje: 'Los tipos permitidos son ' + tiposValidos.join(', ')
+            }
+        });
+
+    }
+
+
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let archivo = req.files.archivo;
     let nombreCortado = archivo.name.split('.');
@@ -32,8 +49,10 @@ app.put('/upload', function(req, res) {
             }
         });
     };
+    //cambiar el nombre al archivo
+    let nombreArchivo = `${id}-${new Date().getMilliseconds()}.${extension}`;
 
-    archivo.mv(`uploads/${archivo.name}`, (err) => {
+    archivo.mv(`uploads/${tipo}/${nombreArchivo}`, (err) => {
         if (err)
             return res.status(500).json({
                 ok: false,
