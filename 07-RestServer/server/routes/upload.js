@@ -18,7 +18,22 @@ app.put('/upload', function(req, res) {
     }
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let archivo = req.files.archivo;
-    archivo.mv('uploads/filename.png', (err) => {
+    let nombreCortado = archivo.name.split('.');
+    let extension = nombreCortado[nombreCortado.length - 1];
+    console.log(extension);
+    // extensiones permitidad
+    let extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
+    if (extensionesValidas.indexOf(extension) < 0) {
+        return res.status(400).json({
+            ok: false,
+            err: {
+                mensaje: 'Las extensiones permitidas son ' + extensionesValidas.join(', '),
+                ext: extension
+            }
+        });
+    };
+
+    archivo.mv(`uploads/${archivo.name}`, (err) => {
         if (err)
             return res.status(500).json({
                 ok: false,
