@@ -29,7 +29,7 @@ app.get('/productos', verificaToken, (req, res) => {
                     err
                 });
             }
-            Producto.count((conteo) => {
+            Producto.count((err, conteo) => {
                 res.json({
                     ok: true,
                     productos,
