@@ -94,8 +94,7 @@ function imagenUsuario(id, res, nombreArchivo) {
         usuarioDB.save((err, usuarioGuardado) => {
             res.json({
                 ok: true,
-                usuario: usuarioGuardado,
-                img: nombreArchivo
+                usuario: usuarioGuardado
             })
         })
 
