@@ -27,7 +27,7 @@ app.get('/categoria', verificaToken, (req, res) => {
                     err
                 });
             }
-            Categoria.countDocuments((conteo) => {
+            Categoria.countDocuments((err, conteo) => {
                 res.json({
                     ok: true,
                     categorias,
