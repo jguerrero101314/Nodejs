@@ -20,8 +20,19 @@ io.on('connection', (client) => {
         console.log('Usuario desconectado');
     });
     // escuchar el cliente
-    client.on('enviarMensaje', (mensaje) => {
-        console.log(mensaje);
+    client.on('enviarMensaje', (mensaje, callback) => {
+        // console.log(mensaje);
+
+        if (mensaje.usuario) {
+            callback({
+                resp: 'Todo salio bien'
+            });
+        } else {
+            callback({
+                resp: 'Todo salio mal!!!!'
+            });
+        }
+
     });
 });
 
