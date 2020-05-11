@@ -10,6 +10,9 @@ const port = process.env.PORT || 3000;
 app.use(express.static(publicPath));
 // IO = esta es la comunicacion del back end
 let io = socketIO(server);
+io.on('connection', (client) => {
+    console.log('Usuario conectado');
+});
 
 
 
