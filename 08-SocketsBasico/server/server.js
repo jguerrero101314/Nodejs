@@ -12,6 +12,10 @@ app.use(express.static(publicPath));
 let io = socketIO(server);
 io.on('connection', (client) => {
     console.log('Usuario conectado');
+    client.emit('enviarMensaje', {
+        usuario: 'admin',
+        mensaje: 'Bienvenido a esta aplicacion'
+    });
     client.on('disconnect', () => {
         console.log('Usuario desconectado');
     });
