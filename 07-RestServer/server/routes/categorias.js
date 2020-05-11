@@ -28,6 +28,13 @@ app.get('/categoria', verificaToken, (req, res) => {
                 });
             }
             Categoria.countDocuments((err, conteo) => {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error contando las categorias',
+                        errors: err
+                    });
+                }
                 res.json({
                     ok: true,
                     categorias,

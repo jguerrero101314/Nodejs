@@ -30,6 +30,13 @@ app.get('/productos', verificaToken, (req, res) => {
                 });
             }
             Producto.count((err, conteo) => {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error contando los productos',
+                        errors: err
+                    });
+                }
                 res.json({
                     ok: true,
                     productos,
