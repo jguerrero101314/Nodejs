@@ -12,8 +12,13 @@ class TicketControl {
             this.reiniciarConteo();
         }
     }
+
     siguiente() {
+
         this.ultimo += 1;
+        this.grabarArchivo();
+
+        return `Ticket ${ this.ultimo }`;
 
     }
     reiniciarConteo() {
