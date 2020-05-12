@@ -9,8 +9,12 @@ io.on('connection', (client) => {
     client.on('siguienteTicket', (data, callback) => {
 
         let siguiente = ticketControl.siguiente();
-        console.log(data);
+        console.log(siguiente);
         if (!callback) return;
         callback(siguiente);
     });
+    client.emit('estadoActual', {
+        actual: ticketControl.getUltimoTicker(),
+    });
+
 });
