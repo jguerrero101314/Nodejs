@@ -12,10 +12,9 @@ socket.on('disconnect', function() {
     console.log('Desconectado del servidor');
 });
 
-// on 'estadoActual'
+// // on 'estadoActual'
 socket.on('estadoActual', function(resp) {
-
-    console.log(resp);
+    console.log(resp.actual);
     label.text(resp.actual);
 
 });
