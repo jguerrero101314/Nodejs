@@ -16,10 +16,14 @@ function renderizarUsuarios(personas) {
         html += '</li>';
     }
     divUsuarios.html(html);
-
-
-
-
-
-
 }
+
+//listeners
+divUsuarios.on('click', 'a', function() {
+    var id = $(this).data('id');
+    if (id) {
+        console.log(id);
+    }
+
+
+});
