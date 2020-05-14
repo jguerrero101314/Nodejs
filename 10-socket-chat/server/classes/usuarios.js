@@ -17,7 +17,8 @@ class Usuarios {
         return this.personas;
     }
     getPersonasSala(sala) {
-        //...
+        let personasEnSala = this.personas.filter(persona => persona.sala === sala);
+        return personasEnSala;
     }
     borrarPersona(id) {
         let personaBorrada = this.getPersona(id);
