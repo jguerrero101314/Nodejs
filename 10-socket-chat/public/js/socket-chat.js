@@ -30,15 +30,17 @@ socket.on('disconnect', function() {
     console.log('Perdimos conexión con el servidor');
 
 });
+
 // Escuchar información
 socket.on('crearMensaje', function(mensaje) {
-    console.log('Servidor:', mensaje);
+    renderizarMensaje(mensaje);
 });
 
 // Escuchar cambios de usuarios
 // cuando un usuario entra o sale del chat
 socket.on('listaPersona', function(personas) {
     renderizarUsuarios(personas);
+
 });
 
 // Mensajes privados
