@@ -33,7 +33,8 @@ socket.on('disconnect', function() {
 
 // Escuchar información
 socket.on('crearMensaje', function(mensaje) {
-    renderizarMensaje(mensaje);
+    renderizarMensaje(mensaje, false);
+    scrollBottom();
 });
 
 // Escuchar cambios de usuarios

@@ -15,8 +15,9 @@ io.on('connection', (client) => {
             });
         }
         client.join(data.sala);
-        let personas = usuarios.agregarPersonas(client.id, data.nombre, data.sala);
+        usuarios.agregarPersonas(client.id, data.nombre, data.sala);
         client.broadcast.to(data.sala).emit('listaPersona', usuarios.getPersonasSala(data.sala));
+        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador', `${data.nombre} se unió`));
         callback(usuarios.getPersonasSala(data.sala));
     });
     client.on('crearMensaje', (data, callback) => {
