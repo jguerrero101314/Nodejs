@@ -12,11 +12,15 @@ var usuario = {
     sala: params.get('sala')
 };
 
+
+
 socket.on('connect', function() {
     console.log('Conectado al servidor');
+
     socket.emit('entrarChat', usuario, function(resp) {
         console.log('Usuarios conectados', resp);
     });
+
 });
 
 // escuchar
@@ -25,6 +29,7 @@ socket.on('disconnect', function() {
     console.log('Perdimos conexión con el servidor');
 
 });
+
 
 // Enviar información
 // socket.emit('crearMensaje', {
@@ -38,12 +43,16 @@ socket.on('disconnect', function() {
 socket.on('crearMensaje', function(mensaje) {
     console.log('Servidor:', mensaje);
 });
-// escuchar cambios de usuarios
+
+// Escuchar cambios de usuarios
 // cuando un usuario entra o sale del chat
 socket.on('listaPersona', function(personas) {
     console.log(personas);
 });
-//mensajes privados
+
+// Mensajes privados
 socket.on('mensajePrivado', function(mensaje) {
-    console.log('Mensaje Privado: ', mensaje);
+
+    console.log('Mensaje Privado:', mensaje);
+
 });
