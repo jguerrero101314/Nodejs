@@ -12,7 +12,9 @@ class MySQL {
             database: 'node_db'
         });
         this.conectarDB();
-        // this.cnn.connect();
+    }
+    static get instance() {
+        return this._instance || (this._instance = new this());
     }
     conectarDB() {
         this.cnn.connect((err) => {
